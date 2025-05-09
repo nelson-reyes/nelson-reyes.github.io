@@ -1,139 +1,243 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nelson Reyes – Insight Inside</title>
-  <!-- 🔱 favicon emoji  -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3E%F0%9F%94%B1%3C/text%3E%3C/svg%3E" />
-  <!-- Google font: Poppins (ligero & moderno)  -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
+  <title>Nelson Reyes – Portafolio</title>
+
+  <!-- Favicon 🔱 emoji incrustado como SVG -->
+  <link rel="icon" href='data:image/svg+xml;utf8,
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+      <text y=".9em" font-size="90">🔱</text>
+    </svg>'/>
+
+  <!-- Google Font moderna -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    :root{
-      /* LIGHT */
-      --txt:#222;--bg:#fffaf3;--accent:#0ea5e9;--accent2:#facc15;
-      --nav-glass:rgba(255,255,255,.65);
-      --card-bg:rgba(0,0,0,.03);--card-hover:rgba(14,165,233,.16);
-      --shadow:0 4px 12px rgb(0 0 0 /.06);
-      --trans:all .35s ease;
-    }
-    @media(prefers-color-scheme:dark){:root{--txt:#e5e7eb;--bg:#111827;--accent:#67e8f9;--accent2:#fde047;--nav-glass:rgba(17,23,39,.35);--card-bg:rgba(255,255,255,.05);--card-hover:rgba(103,232,249,.12);--shadow:0 4px 12px rgb(0 0 0 /.4);}}
-    html.light{--txt:#222;--bg:#fffaf3;--accent:#0ea5e9;--accent2:#facc15;--nav-glass:rgba(255,255,255,.65);--card-bg:rgba(0,0,0,.03);--card-hover:rgba(14,165,233,.16);}html.dark{--txt:#e5e7eb;--bg:#111827;--accent:#67e8f9;--accent2:#fde047;--nav-glass:rgba(17,23,39,.35);--card-bg:rgba(255,255,255,.05);--card-hover:rgba(103,232,249,.12);}    
+  :root{
+    --clr-bg:#f7f1e9;
+    --clr-bg-dark:#11181f;
+    --clr-fg:#0c0c0d;
+    --clr-fg-dark:#f3f4f6;
+    --clr-accent:#00bfa6;
+    --clr-accent-dark:#23d6c8;
+    --clr-nav-bg:rgba(255,255,255,.6);
+    --clr-nav-bg-dark:rgba(17,24,31,.6);
+    --trans:.35s ease;
+    font-size: clamp(15px,2vw,18px);
+    scroll-behavior: smooth;
+  }
+  [data-theme="dark"]{
+    --clr-bg:var(--clr-bg-dark);
+    --clr-fg:var(--clr-fg-dark);
+    --clr-nav-bg:var(--clr-nav-bg-dark);
+    --clr-accent:var(--clr-accent-dark);
+  }
+  body{
+    margin:0;
+    font-family:'Poppins',system-ui,Arial, sans-serif;
+    background:var(--clr-bg);
+    color:var(--clr-fg);
+    transition:background var(--trans),color var(--trans);
+  }
+  /* ───────── NAVBAR ───────── */
+  nav{
+    position:sticky;top:0;z-index:99;
+    display:flex;align-items:center;gap:2rem;
+    padding:.75rem 1.5rem;
+    backdrop-filter:blur(14px) saturate(150%);
+    background:var(--clr-nav-bg);
+    border-bottom:1px solid rgba(0,0,0,.05);
+    transition:background var(--trans);
+  }
+  nav a{
+    text-decoration:none;color:inherit;font-weight:600;
+    position:relative;padding:.25rem .1rem;
+  }
+  nav a::after{
+    content:'';position:absolute;left:0;bottom:-4px;
+    width:100%;height:2px;background:var(--clr-accent);
+    transform:scaleX(0);transform-origin:left;
+    transition:transform var(--trans);
+  }
+  nav a:hover::after{transform:scaleX(1);}
+  nav button{
+    margin-left:auto;
+    display:flex;align-items:center;gap:.5rem;
+    background:var(--clr-accent);color:#fff;
+    border:none;border-radius:.5rem;padding:.4rem .7rem;
+    cursor:pointer;transition:background .25s;
+  }
+  nav button:hover{filter:brightness(.9);}
+  /* ───────── LAYOUT ───────── */
+  main{padding:3rem 1.2rem;max-width:980px;margin-inline:auto;}
+  section{display:none;opacity:0;transition:opacity var(--trans);}
+  section.active{display:block;opacity:1;}
 
-    *{box-sizing:border-box}body{margin:0;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--txt);line-height:1.7;scroll-behavior:smooth;}  
-
-    /* ===== NAV ===== */
-    header{position:sticky;top:0;z-index:50;backdrop-filter:blur(20px) saturate(180%);background:var(--nav-glass);box-shadow:var(--shadow);}    
-    .nav{max-width:960px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:.9rem 1rem;}
-    .nav a{margin:0 .8rem;text-decoration:none;font-weight:600;color:var(--txt);position:relative;transition:color .25s ease;}
-    .nav a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--accent);transition:width .25s ease;}
-    .nav a:hover::after,.nav a.active::after{width:100%;}
-    .btn{border:none;background:var(--accent);color:#fff;padding:.45rem .9rem;border-radius:.6rem;font-weight:600;cursor:pointer;transition:transform .18s ease;}
-    .btn:hover{transform:scale(1.08);}    
-
-    main{max-width:900px;margin:auto;padding:2rem 1rem;transition:opacity .5s ease;opacity:1;}
-    section{margin-bottom:4rem;}
-
-    h1,h2,h3{margin:.25rem 0;font-weight:800;line-height:1.2;}
-    h1{font-size:clamp(2rem,4.2vw,2.8rem);}h2{font-size:clamp(1.5rem,3.6vw,2.1rem);}h3{font-size:1.25rem;}
-
-    /* ===== AVATAR ===== */
-    .avatar{width:140px;height:140px;border-radius:50%;object-fit:cover;box-shadow:var(--shadow);margin-bottom:1.3rem;}
-
-    /* ===== CARD ===== */
-    .card{padding:1.4rem;border-radius:1.1rem;background:var(--card-bg);box-shadow:var(--shadow);margin-bottom:1.7rem;transition:var(--trans);}    
-    .card:hover{background:var(--card-hover);transform:translateY(-4px);}    
-    .tag{display:inline-block;background:var(--accent);color:#fff;font-size:.75rem;padding:.2rem .6rem;border-radius:.4rem;margin-right:.4rem;margin-top:.4rem;user-select:none;}
-    @media(min-width:640px){.card{display:flex;align-items:center;}}
-
-    ul{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:.65rem;}
-    ul.social a{color:var(--accent);font-weight:600;text-decoration:none;}
+  h1,h2{margin:.3em 0;}
+  h1{font-size:2.3rem;}
+  h2{font-size:1.8rem;color:var(--clr-accent);}
+  img#avatar{
+    width:180px;height:180px;border-radius:50%;
+    object-fit:cover;object-position:center;
+    border:4px solid var(--clr-accent);margin-bottom:1rem;
+  }
+  /* ───────── EXPERIENCIA ───────── */
+  .card{
+    border-radius:1rem;border:1px solid rgba(0,0,0,.06);
+    padding:1.5rem;margin-bottom:1.6rem;
+    background:#fff;transition:transform var(--trans),background var(--trans),box-shadow var(--trans);
+  }
+  .card:hover{
+    background:#0d2e35;color:#e4fefb;
+    transform:translateY(-4px);
+    box-shadow:0 8px 18px rgba(0,0,0,.15);
+  }
+  [data-theme="dark"] .card{background:#1b2935;border-color:#243444;}
+  [data-theme="dark"] .card:hover{background:#063d49;color:#dbfdf9;}
+  .tags{margin-top:.8rem;display:flex;flex-wrap:wrap;gap:.35rem;}
+  .tag{
+    background:var(--clr-accent);color:#fff;font-size:.75rem;
+    padding:.25rem .55rem;border-radius:.4rem;
+  }
+  /* buttons idioma / tema */
+  .sm-btn{
+    border:none;background:transparent;color:inherit;cursor:pointer;
+    font-size:1.1rem;padding:.3rem .5rem;border-radius:.3rem;
+  }
+  .sm-btn:hover{background:rgba(0,0,0,.07);}
+  [data-theme="dark"] .sm-btn:hover{background:rgba(255,255,255,.08);}
   </style>
 </head>
 <body>
-  <header>
-    <nav class="nav">
-      <div><a href="#top" class="nav-link active">Nelson Reyes</a></div>
-      <div id="navLinks">
-        <a href="#about" class="nav-link">Sobre mí</a>
-        <a href="#exp" class="nav-link">Experiencia</a>
-        <a href="#works" class="nav-link">Proyectos</a>
-        <a href="#blog" class="nav-link">Blog</a>
-        <a href="#contacto" class="nav-link">Contacto</a>
+
+  <!-- ───────── NAVBAR ───────── -->
+  <nav>
+    <span style="font-weight:700;">Nelson Reyes</span>
+    <a href="#about"  data-section="about">Sobre mí</a>
+    <a href="#experience" data-section="experience">Experiencia</a>
+    <a href="#projects" data-section="projects">Proyectos</a>
+    <button id="themeBtn" class="sm-btn" title="Tema claro / oscuro">🌙</button>
+    <button id="langBtn"  class="sm-btn" title="Español / English">EN</button>
+  </nav>
+
+  <main id="container">
+    <!-- ───────── ABOUT ───────── -->
+    <section id="about" class="active">
+      <!-- Cambia esta URL por tu foto ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
+      <img id="avatar" src="https://via.placeholder.com/400" alt="Nelson Reyes avatar">
+      <h1 data-es="¡Hola! Soy Nelson Reyes 👋" data-en="Hi! I'm Nelson Reyes 👋"></h1>
+      <p data-es="Ingeniero en Informática 🖥️ y entusiasta del yoga 🧘‍♂️ —  actualmente lidero proyectos de infraestructura cloud y seguridad perimetral."
+         data-en="Computer Engineer 🖥️ and yoga enthusiast 🧘‍♂️ — currently leading cloud-infrastructure and perimeter-security projects.">
+      </p>
+
+      <h2 data-es="Historia" data-en="Story"></h2>
+      <p data-es="Desde mis inicios reparando computadores en Rancagua hasta coordinar incidentes de ransomware a escala global, mi carrera ha sido un viaje de aprendizaje continuo, rock progresivo 🎸 y mucho café ☕️."
+         data-en="From fixing PCs in Rancagua to coordinating global ransomware incidents, my career has been a journey of constant learning, progressive rock 🎸 and lots of coffee ☕️."></p>
+      <p data-es="Combino más de 10 años de experiencia en virtualización, redes y cloud (Azure/AWS) con mi pasión por la docencia, la música y la meditación."
+         data-en="I combine 10+ years of experience in virtualization, networking and cloud (Azure/AWS) with passion for teaching, music and meditation."></p>
+
+      <p>🔗 <a href="https://linkedin.com/in/nelsonreyesn" target="_blank">LinkedIn</a> &nbsp;|&nbsp;
+         📧 <a href="mailto:nelson.reyes.nunez@outlook.com">nelson.reyes.nunez@outlook.com</a></p>
+    </section>
+
+    <!-- ───────── EXPERIENCIA ───────── -->
+    <section id="experience">
+      <h2 data-es="Experiencia" data-en="Experience"></h2>
+
+      <div class="card">
+        <h3>IFX Networks – <em data-es="Ingeniero Servicios Profesionales" data-en="Professional Services Engineer"></em> 🌐</h3>
+        <p data-es="Diseño e implementación de soluciones a la medida para clientes enterprise: VMware, Fortinet, Azure AD y migraciones híbridas."
+           data-en="Designed and delivered tailor-made solutions for enterprise clients: VMware, Fortinet, Azure AD and hybrid migrations."></p>
+        <p><strong>2023 – Presente</strong></p>
+        <div class="tags">
+          <span class="tag">VMware</span><span class="tag">Azure</span><span class="tag">Fortinet</span><span class="tag">Consultoría</span>
+        </div>
       </div>
-      <div style="display:flex;gap:.7rem;align-items:center;">
-        <button id="langToggle" class="btn" aria-label="Cambiar idioma">EN</button>
-        <button id="themeToggle" class="btn" aria-label="Cambiar tema">🌙</button>
+
+      <div class="card">
+        <h3>IFX Networks – <em data-es="Jefe Soporte Técnico Datacenter" data-en="Datacenter Support Lead"></em> 🏢</h3>
+        <p data-es="Lideré un equipo 24×7 resolviendo incidentes críticos (ransomware) y elevé los KPIs de disponibilidad al 99,98 %."
+           data-en="Led a 24×7 team resolving critical ransomware incidents and raised availability KPIs to 99.98 %."></p>
+        <p><strong>2022 – 2023</strong></p>
+        <div class="tags">
+          <span class="tag">Team Lead</span><span class="tag">Ransomware</span><span class="tag">ITIL</span>
+        </div>
       </div>
-    </nav>
-  </header>
 
-  <main id="main">
-    <!-- ===== ABOUT ===== -->
-    <section id="about">
-      <!-- 🙌 Sustituye la URL por tu foto personal (400×400 recomendado)  -->
-      <img src="https://via.placeholder.com/400" alt="Foto de Nelson" class="avatar" id="avatar">
-
-      <h1 data-es="¡Hola, soy Nelson Reyes! 👋" data-en="Hey, I'm Nelson Reyes! 👋">¡Hola, soy Nelson Reyes! 👋</h1>
-      <p data-es="Ingeniero en Informática, chileno de corazón 🇨🇱 y ciudadano digital del mundo. Me muevo entre racks, nubes y líneas de código mientras practico yoga, medito y rasgueo la guitarra." data-en="Chilean IT engineer, cloud tamer and code whisperer. When I'm not inside a datacenter you can find me on the yoga mat or playing some guitar riffs.">Ingeniero en Informática, chileno de corazón 🇨🇱 y ciudadano digital del mundo. Me muevo entre racks, nubes y líneas de código mientras practico yoga, medito y rasgueo la guitarra.</p>
-
-      <h3 data-es="Historia" data-en="Story">Historia</h3>
-      <p data-es="Comencé arreglando computadores en el liceo 🛠️, pasé por la minería subterránea ⛏️ y terminé liderando soporte en datacenters de alto tráfico 🌐. Hoy diseño infraestructuras seguras y resilientes en la nube ☁️, ayudando a empresas latinoamericanas a dormir tranquilas. Cuando no estoy automatizando despliegues, enseño respiración yóguica a quien me escuche. ✨" data-en="I started fixing PCs in high‑school 🛠️, worked underground in mining ⛏️, and ended up running high‑traffic datacenter support 🌐. Now I craft secure, resilient cloud architectures ☁️ so Latin‑American companies can sleep at night. Off‑hours I teach yogic breathing to anyone who'll listen ✨.">Comencé arreglando computadores en el liceo 🛠️, pasé por la minería subterránea ⛏️ y terminé liderando soporte en datacenters de alto tráfico 🌐. Hoy diseño infraestructuras seguras y resilientes en la nube ☁️, ayudando a empresas latinoamericanas a dormir tranquilas. Cuando no estoy automatizando despliegues, enseño respiración yóguica a quien me escuche. ✨</p>
+      <div class="card">
+        <h3>Netglobalis – NOC / Team Leader 🛰️</h3>
+        <p data-es="Monitoreo proactivo de redes, coordinación de mantenciones y optimización de plataformas multi-vendor (Cisco, Juniper, Mikrotik)."
+           data-en="Proactive network monitoring, maintenance coordination and multivendor platform optimization (Cisco, Juniper, Mikrotik)."></p>
+        <p><strong>2015 – 2022</strong></p>
+        <div class="tags">
+          <span class="tag">NOC</span><span class="tag">Cisco</span><span class="tag">Juniper</span><span class="tag">Virtualización</span>
+        </div>
+      </div>
     </section>
 
-    <!-- ===== EXPERIENCE ===== -->
-    <section id="exp">
-      <h2 data-es="Experiencia" data-en="Experience">Experiencia</h2>
+    <!-- ───────── PROYECTOS ───────── -->
+    <section id="projects">
+      <h2>Proyectos 🚀</h2>
 
-      <article class="card">
-        <div style="flex:1">
-          <h3>IFX Networks</h3>
-          <p data-es="Ingeniero de Servicios Profesionales (2023 – presente)" data-en="Professional Services Engineer (2023 – present)">Ingeniero de Servicios Profesionales (2023 – presente)</p>
-          <p data-es="Diseño e implementación de soluciones multi‑nube, seguridad perimetral y proyectos de virtualización a gran escala para clientes enterprise." data-en="Design & delivery of multi‑cloud, perimeter security and large‑scale virtualization projects for enterprise clients.">Diseño e implementación de soluciones multi‑nube, seguridad perimetral y proyectos de virtualización a gran escala para clientes enterprise.</p>
-          <span class="tag">Azure☁️</span><span class="tag">VMware</span><span class="tag">FortiSIEM</span>
-        </div>
-      </article>
+      <div class="card">
+        <h3>ZenFeed 🧘‍♂️</h3>
+        <p data-es="Agregador de noticias personalizable que mezcla IA y astrología védica para entregar titulares + citas inspiradoras cada mañana."
+           data-en="Custom news aggregator blending AI and Vedic astrology to deliver headlines + inspirational quotes every morning."></p>
+        <div class="tags"><span class="tag">Next.js</span><span class="tag">OpenAI</span><span class="tag">RSS</span></div>
+      </div>
 
-      <article class="card">
-        <div style="flex:1">
-          <h3>IFX Networks</h3>
-          <p data-es="Jefe de Soporte Datacenter (2022 – 2023)" data-en="Datacenter Support Lead (2022 – 2023)">Jefe de Soporte Datacenter (2022 – 2023)</p>
-          <p data-es="Lideré un equipo 24×7, gestioné incidentes críticos (incluido un ransomware global 🛡️) y elevé los SLA a 99,99 %." data-en="Led a 24×7 team, handled critical incidents (including a global ransomware attack 🛡️) and pushed SLAs to 99.99 %.">Lideré un equipo 24×7, gestioné incidentes críticos (incluido un ransomware global 🛡️) y elevé los SLA a 99,99 %.</p>
-          <span class="tag">ITIL</span><span class="tag">SLA 99.99%</span><span class="tag">Leadership</span>
-        </div>
-      </article>
-
-      <article class="card">
-        <div style="flex:1">
-          <h3>Netglobalis</h3>
-          <p data-es="Supervisor NOC & ISO 9001/27001 (2015 – 2022)" data-en="NOC Supervisor & ISO 9001/27001 Owner (2015 – 2022)">Supervisor NOC & ISO 9001/27001 (2015 – 2022)</p>
-          <p data-es="Encargado de la mesa crítica, líder del proceso ISO y creador de manuales de respuesta a incidentes que redujeron tiempos de recuperación en 40 %." data-en="Owned the critical desk, led ISO processes and crafted runbooks that cut MTTR by 40 %.">Encargado de la mesa crítica, líder del proceso ISO y creador de manuales de respuesta a incidentes que redujeron tiempos de recuperación en 40 %.</p>
-          <span class="tag">Nagios</span><span class="tag">ISO 27001</span><span class="tag">Automation</span>
-        </div>
-      </article>
+      <div class="card">
+        <h3>Yoga Scheduler 🗓️</h3>
+        <p data-es="Pequeña PWA que calcula Ekadashi y horarios auspiciosos para prácticas de Isha Yoga, con notificaciones push."
+           data-en="Lightweight PWA that calculates Ekadashi and auspicious timings for Isha Yoga practices, with push notifications."></p>
+        <div class="tags"><span class="tag">PWA</span><span class="tag">Service Worker</span></div>
+      </div>
     </section>
+  </main>
 
-    <!-- ===== PROJECTS ===== -->
-    <section id="works">
-      <h2 data-es="Proyectos" data-en="Projects">Proyectos</h2>
-      <article class="card">
-        <div style="flex:1">
-          <h3>ZenFeed 📰🤖</h3>
-          <p data-es="Bot serverless que genera un boletín diario con GPT y lo envía por correo usando Workers y SendGrid." data-en="Serverless bot that crafts a daily GPT newsletter and emails it via Workers + SendGrid.">Bot serverless que genera un boletín diario con GPT y lo envía por correo usando Workers y SendGrid.</p>
-          <span class="tag">JavaScript</span><span class="tag">Cloudflare</span><span class="tag">OpenAI</span>
-        </div>
-      </article>
-      <article class="card">
-        <div style="flex:1">
-          <h3>Yoga Scheduler 🧘‍♂️</h3>
-          <p data-es="Progressive Web App para planificar prácticas de Hatha Yoga y recordatorios de Ekadashi." data-en="PWA to schedule Hatha Yoga practice & Ekadashi reminders.">Progressive Web App para planificar prácticas de Hatha Yoga y recordatorios de Ekadashi.</p>
-          <span class="tag">Python</span><span class="tag">Flask</span><span class="tag">PWA</span>
-        </div>
-      </article>
-    </section>
+<script>
+/* ---------- utilidades ---------- */
+const $ = s=>document.querySelector(s);
+const qsAll = s=>document.querySelectorAll(s);
 
-    <!-- ===== BLOG ===== -->
-    <section id="blog">
-      <h2 data-es="Últimos artículos" data-en="Latest posts">Últimos artículos</h2>
-      <article class="card">
-        <div style
+/* ---------- tema claro/oscuro ---------- */
+const root=document.documentElement;
+const themeBtn=$("#themeBtn");
+function setTheme(t){ root.setAttribute("data-theme",t); localStorage.setItem("theme",t); themeBtn.textContent=t==="dark"?"☀️":"🌙"; }
+themeBtn.onclick=()=> setTheme(root.getAttribute("data-theme")==="light"?"dark":"light");
+setTheme(localStorage.getItem("theme")|| (matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"));
+
+/* ---------- idioma ES / EN ---------- */
+const langBtn=$("#langBtn");
+function setLang(l){
+  qsAll("[data-es]").forEach(el=> el.textContent = l==="es" ? el.dataset.es : el.dataset.en);
+  localStorage.setItem("lang",l);
+  langBtn.textContent = l==="es" ? "EN" : "ES";
+}
+langBtn.onclick=()=> setLang(localStorage.getItem("lang")==="es"?"en":"es");
+setLang(localStorage.getItem("lang")||"es");
+
+/* ---------- navegación con fade ---------- */
+const container=$("#container");
+qsAll("nav a").forEach(a=>{
+  a.addEventListener("click",e=>{
+    e.preventDefault();
+    const id=a.dataset.section;
+    if(!id) return;
+    // fade-out del contenido actual
+    container.style.opacity="0";
+    setTimeout(()=>{
+      qsAll("main section").forEach(s=>s.classList.remove("active"));
+      $("#"+id).classList.add("active");
+      container.style.opacity="1";
+      // enfoque al inicio del nuevo contenido
+      window.scrollTo({top:0,behavior:"instant"});
+    },350); // debe coincidir con --trans
+  });
+});
+</script>
+</body>
+</html>
