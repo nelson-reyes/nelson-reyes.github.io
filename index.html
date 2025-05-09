@@ -1,14 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8556711339623724"
-     crossorigin="anonymous"></script>
-<title>Nelson Reyes.com</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nelson Reyes – Insight Inside</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --txt: #222;
+      --bg: #fffaf3;
+      --accent: #0ea5e9;
+      --nav-bg: rgba(255, 255, 255, 0.6);
+      --shadow: 0 4px 12px rgb(0 0 0 / .05);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --txt:#e5e7eb; --bg:#111827; --accent:#67e8f9; --nav-bg:rgba(17,23,39,.35); --shadow:0 4px 12px rgb(0 0 0 / .4);
+      }
+    }
+    html.light{--txt:#222;--bg:#fffaf3;--accent:#0ea5e9;--nav-bg:rgba(255,255,255,.6);--shadow:0 4px 12px rgb(0 0 0 / .05);}html.dark{--txt:#e5e7eb;--bg:#111827;--accent:#67e8f9;--nav-bg:rgba(17,23,39,.35);--shadow:0 4px 12px rgb(0 0 0 / .4);}    
+    body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;}
+    /* Navigation */
+    header{position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);background:var(--nav-bg);box-shadow:var(--shadow);}    
+    .nav{max-width:960px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;}
+    .nav a{margin:0 .75rem;text-decoration:none;font-weight:600;color:var(--txt);}    
+    .nav a.active{color:var(--accent);}    
+    .btn{border:none;background:var(--accent);color:#fff;padding:.45rem .75rem;border-radius:.5rem;cursor:pointer;}
+    main{max-width:800px;margin:auto;padding:2rem 1rem;}
+    section{margin-bottom:3rem;}
+    h1,h2,h3{margin:.2rem 0;font-weight:800;}
+    h1{font-size:clamp(1.8rem,4vw,2.5rem);}    
+    ul{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:.5rem;}
+    ul.social a{color:var(--accent);font-weight:600;text-decoration:none;}
+    .card{padding:1.25rem;border-radius:1rem;background:rgba(0,0,0,.03);box-shadow:var(--shadow);}    
+    @media (min-width:640px){.card{display:flex;align-items:center;}}
+  </style>
 </head>
 <body>
+  <header>
+    <nav class="nav">
+      <div><a href="#top" class="active">Nelson Reyes</a></div>
+      <div>
+        <a href="#about">Sobre mí</a>
+        <a href="#exp">Experiencia</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <div style="display:flex;gap:.5rem;align-items:center;">
+        <button id="langToggle" class="btn" aria-label="Cambiar idioma">EN</button>
+        <button id="themeToggle" class="btn" aria-label="Cambiar tema">🌙</button>
+      </div>
+    </nav>
+  </header>
 
-<h1>Insight Inside</h1>
-<p>En Construcción✍🏻</p>
+  <main id="top">
+    <section id="about">
+      <h1 data-es="Hola, soy Nelson 👋" data-en="Hi, I'm Nelson 👋">Hola, soy Nelson 👋</h1>
+      <p data-es="Ingeniero en Informática de Santiago de Chile, apasionado por la ciberseguridad, la ciencia yogui y la música." data-en="IT engineer from Santiago, Chile, passionate about cybersecurity, yogic science and music.">Ingeniero en Informática de Santiago de Chile, apasionado por la ciberseguridad, la ciencia yogui y la música.</p>
+    </section>
 
+    <section id="exp">
+      <h2 data-es="Experiencia" data-en="Experience">Experiencia</h2>
+      <div class="card">
+        <div style="flex:1">
+          <h3>IFX Networks</h3>
+          <p data-es="Ingeniero de Soporte Senior (2019–2024)" data-en="Senior Support Engineer (2019–2024)">Ingeniero de Soporte Senior (2019–2024)</p>
+          <p data-es="Virtualización, redes y seguridad perimetral para clientes enterprise." data-en="Virtualization, networking and perimeter security for enterprise clients.">Virtualización, redes y seguridad perimetral para clientes enterprise.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <h2 data-es="Contacto" data-en="Contact">Contacto</h2>
+      <ul class="social">
+        <li><a href="mailto:nelson.reyes.nunez@outlook.com">✉️ Email</a></li>
+        <li><a href="https://linkedin.com/in/nelsonreyesn" target="_blank" rel="noopener">🔗 LinkedIn</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    // Theme toggle
+    const root=document.documentElement;
+    const themeBtn=document.getElementById('themeToggle');
+    const current=localStorage.getItem('theme');
+    if(current){root.classList.add(current);}    
+    themeBtn.addEventListener('click',()=>{
+      if(root.classList.contains('dark')){root.classList.replace('dark','light');localStorage.setItem('theme','light');themeBtn.textContent='🌙';}
+      else if(root.classList.contains('light')){root.classList.replace('light','dark');localStorage.setItem('theme','dark');themeBtn.textContent='☀️';}
+      else{root.classList.add('dark');localStorage.setItem('theme','dark');themeBtn.textContent='☀️';}
+    });
+    if(root.classList.contains('dark')) themeBtn.textContent='☀️';
+
+    // Language toggle
+    const langBtn=document.getElementById('langToggle');
+    const texts=[...document.querySelectorAll('[data-es]')];
+    let lang=localStorage.getItem('lang')|| (navigator.language.startsWith('es')?'es':'en');
+    const applyLang=(l)=>{
+      texts.forEach(el=>el.textContent=el.dataset[l]);
+      langBtn.textContent=l==='es'?'EN':'ES';
+      localStorage.setItem('lang',l);
+    };
+    applyLang(lang);
+    langBtn.addEventListener('click',()=>{lang=lang==='es'?'en':'es';applyLang(lang);});
+  </script>
 </body>
 </html>
