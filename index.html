@@ -3,37 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nelson Reyes – Insight Inside</title>
+  <title>Nelson Reyes – Insight Inside</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --txt: #222;
-      --bg: #fffaf3;
-      --accent: #0ea5e9;
-      --nav-bg: rgba(255, 255, 255, 0.6);
-      --shadow: 0 4px 12px rgb(0 0 0 / .05);
+    :root{
+      /* light */
+      --txt:#222;--bg:#fffaf3;--accent:#0ea5e9;
+      --nav-glass:rgba(255,255,255,.6);
+      --card-bg:rgba(0,0,0,.03);--card-bg-hover:rgba(14,165,233,.15);
+      --shadow:0 4px 12px rgb(0 0 0 / .05);
     }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --txt:#e5e7eb; --bg:#111827; --accent:#67e8f9; --nav-bg:rgba(17,23,39,.35); --shadow:0 4px 12px rgb(0 0 0 / .4);
-      }
-    }
-    html.light{--txt:#222;--bg:#fffaf3;--accent:#0ea5e9;--nav-bg:rgba(255,255,255,.6);--shadow:0 4px 12px rgb(0 0 0 / .05);}html.dark{--txt:#e5e7eb;--bg:#111827;--accent:#67e8f9;--nav-bg:rgba(17,23,39,.35);--shadow:0 4px 12px rgb(0 0 0 / .4);}    
-    body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;}
-    /* Navigation */
-    header{position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);background:var(--nav-bg);box-shadow:var(--shadow);}    
-    .nav{max-width:960px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;}
-    .nav a{margin:0 .75rem;text-decoration:none;font-weight:600;color:var(--txt);}    
+    @media(prefers-color-scheme:dark){:root{--txt:#e5e7eb;--bg:#111827;--accent:#67e8f9;--nav-glass:rgba(17,23,39,.35);--card-bg:rgba(255,255,255,.05);--card-bg-hover:rgba(103,232,249,.10);--shadow:0 4px 12px rgb(0 0 0 /.4);}}
+    html.light{--txt:#222;--bg:#fffaf3;--accent:#0ea5e9;--nav-glass:rgba(255,255,255,.6);--card-bg:rgba(0,0,0,.03);--card-bg-hover:rgba(14,165,233,.15);}html.dark{--txt:#e5e7eb;--bg:#111827;--accent:#67e8f9;--nav-glass:rgba(17,23,39,.35);--card-bg:rgba(255,255,255,.05);--card-bg-hover:rgba(103,232,249,.10);}    
+
+    body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);line-height:1.65;scroll-behavior:smooth;}
+    /* nav */
+    header{position:sticky;top:0;z-index:50;backdrop-filter:blur(18px) saturate(160%);background:var(--nav-glass);box-shadow:var(--shadow);}    
+    .nav{max-width:960px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:.85rem 1rem;}
+    .nav a{margin:0 .8rem;text-decoration:none;font-weight:600;color:var(--txt);position:relative;}
+    .nav a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--accent);transition:width .25s ease;}
+    .nav a:hover::after{width:100%;}
     .nav a.active{color:var(--accent);}    
-    .btn{border:none;background:var(--accent);color:#fff;padding:.45rem .75rem;border-radius:.5rem;cursor:pointer;}
-    main{max-width:800px;margin:auto;padding:2rem 1rem;}
-    section{margin-bottom:3rem;}
-    h1,h2,h3{margin:.2rem 0;font-weight:800;}
-    h1{font-size:clamp(1.8rem,4vw,2.5rem);}    
-    ul{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:.5rem;}
+    .btn{border:none;background:var(--accent);color:#fff;padding:.45rem .9rem;border-radius:.6rem;font-weight:600;cursor:pointer;transition:transform .18s ease;}
+    .btn:hover{transform:scale(1.08);}    
+
+    main{max-width:900px;margin:auto;padding:2rem 1rem;transition:opacity .5s ease;}
+    section{margin-bottom:4rem;}
+
+    h1,h2,h3{margin:.25rem 0;font-weight:800;}
+    h1{font-size:clamp(2rem,4.2vw,2.7rem);}h2{font-size:clamp(1.5rem,3.6vw,2rem);}    
+
+    /* avatar */
+    .avatar{width:120px;height:120px;border-radius:50%;object-fit:cover;box-shadow:var(--shadow);margin-bottom:1rem;}
+
+    /* cards */
+    .card{padding:1.3rem;border-radius:1rem;background:var(--card-bg);box-shadow:var(--shadow);margin-bottom:1.6rem;transition:background .35s ease,transform .3s ease;}
+    .card:hover{background:var(--card-bg-hover);transform:translateY(-4px);}    
+    .tag{display:inline-block;background:var(--accent);color:#fff;font-size:.75rem;padding:.2rem .6rem;border-radius:.4rem;margin-right:.4rem;margin-top:.4rem;}
+    @media(min-width:640px){.card{display:flex;align-items:center;}}
+
+    ul{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:.6rem;}
     ul.social a{color:var(--accent);font-weight:600;text-decoration:none;}
-    .card{padding:1.25rem;border-radius:1rem;background:rgba(0,0,0,.03);box-shadow:var(--shadow);}    
-    @media (min-width:640px){.card{display:flex;align-items:center;}}
   </style>
 </head>
 <body>
@@ -43,65 +53,67 @@
       <div>
         <a href="#about">Sobre mí</a>
         <a href="#exp">Experiencia</a>
+        <a href="#works">Proyectos</a>
+        <a href="#blog">Blog</a>
         <a href="#contacto">Contacto</a>
       </div>
-      <div style="display:flex;gap:.5rem;align-items:center;">
+      <div style="display:flex;gap:.7rem;align-items:center;">
         <button id="langToggle" class="btn" aria-label="Cambiar idioma">EN</button>
         <button id="themeToggle" class="btn" aria-label="Cambiar tema">🌙</button>
       </div>
     </nav>
   </header>
 
-  <main id="top">
+  <main id="main">
+    <!-- ===== HERO / ABOUT ===== -->
     <section id="about">
+      <!-- 🙌 Reemplaza la URL en src con tu foto -->
+      <img src="https://via.placeholder.com/240" alt="Foto de Nelson" class="avatar" id="avatar">
+
       <h1 data-es="Hola, soy Nelson 👋" data-en="Hi, I'm Nelson 👋">Hola, soy Nelson 👋</h1>
       <p data-es="Ingeniero en Informática de Santiago de Chile, apasionado por la ciberseguridad, la ciencia yogui y la música." data-en="IT engineer from Santiago, Chile, passionate about cybersecurity, yogic science and music.">Ingeniero en Informática de Santiago de Chile, apasionado por la ciberseguridad, la ciencia yogui y la música.</p>
+
+      <h3 data-es="Historia" data-en="Story">Historia</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer aliquet a enim in pretium. Sed aliquet augue vel ligula dictum, eget placerat dui mollis. Aenean pretium eleifend mauris, vitae porta risus interdum in. Suspendisse potenti. Phasellus volutpat purus nec quam fermentum, quis consequat velit iaculis.</p>
     </section>
 
+    <!-- ===== EXPERIENCE ===== -->
     <section id="exp">
       <h2 data-es="Experiencia" data-en="Experience">Experiencia</h2>
-      <div class="card">
+
+      <article class="card">
         <div style="flex:1">
           <h3>IFX Networks</h3>
           <p data-es="Ingeniero de Soporte Senior (2019–2024)" data-en="Senior Support Engineer (2019–2024)">Ingeniero de Soporte Senior (2019–2024)</p>
           <p data-es="Virtualización, redes y seguridad perimetral para clientes enterprise." data-en="Virtualization, networking and perimeter security for enterprise clients.">Virtualización, redes y seguridad perimetral para clientes enterprise.</p>
+          <span class="tag">VMware</span><span class="tag">FortiSIEM</span><span class="tag">Azure</span>
         </div>
-      </div>
+      </article>
+
+      <article class="card">
+        <div style="flex:1">
+          <h3>Netglobalis</h3>
+          <p data-es="Administrador de Sistemas (2016–2019)" data-en="Systems Administrator (2016–2019)">Administrador de Sistemas (2016–2019)</p>
+          <p data-es="Gestión de servidores Windows/Linux y automatización de backups." data-en="Managed Windows/Linux servers and backup automation.">Gestión de servidores Windows/Linux y automatización de backups.</p>
+          <span class="tag">Linux</span><span class="tag">Ansible</span><span class="tag">SQL Server</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <div style="flex:1">
+          <h3>Intesis</h3>
+          <p data-es="Soporte Datacenter (2013–2016)" data-en="Datacenter Support (2013–2016)">Soporte Datacenter (2013–2016)</p>
+          <p data-es="Monitoreo de infraestructura y respuesta a incidentes 24x7." data-en="Infrastructure monitoring and 24x7 incident response.">Monitoreo de infraestructura y respuesta a incidentes 24x7.</p>
+          <span class="tag">Nagios</span><span class="tag">Networking</span>
+        </div>
+      </article>
     </section>
 
-    <section id="contacto">
-      <h2 data-es="Contacto" data-en="Contact">Contacto</h2>
-      <ul class="social">
-        <li><a href="mailto:nelson.reyes.nunez@outlook.com">✉️ Email</a></li>
-        <li><a href="https://linkedin.com/in/nelsonreyesn" target="_blank" rel="noopener">🔗 LinkedIn</a></li>
-      </ul>
-    </section>
-  </main>
-
-  <script>
-    // Theme toggle
-    const root=document.documentElement;
-    const themeBtn=document.getElementById('themeToggle');
-    const current=localStorage.getItem('theme');
-    if(current){root.classList.add(current);}    
-    themeBtn.addEventListener('click',()=>{
-      if(root.classList.contains('dark')){root.classList.replace('dark','light');localStorage.setItem('theme','light');themeBtn.textContent='🌙';}
-      else if(root.classList.contains('light')){root.classList.replace('light','dark');localStorage.setItem('theme','dark');themeBtn.textContent='☀️';}
-      else{root.classList.add('dark');localStorage.setItem('theme','dark');themeBtn.textContent='☀️';}
-    });
-    if(root.classList.contains('dark')) themeBtn.textContent='☀️';
-
-    // Language toggle
-    const langBtn=document.getElementById('langToggle');
-    const texts=[...document.querySelectorAll('[data-es]')];
-    let lang=localStorage.getItem('lang')|| (navigator.language.startsWith('es')?'es':'en');
-    const applyLang=(l)=>{
-      texts.forEach(el=>el.textContent=el.dataset[l]);
-      langBtn.textContent=l==='es'?'EN':'ES';
-      localStorage.setItem('lang',l);
-    };
-    applyLang(lang);
-    langBtn.addEventListener('click',()=>{lang=lang==='es'?'en':'es';applyLang(lang);});
-  </script>
-</body>
-</html>
+    <!-- ===== PROJECTS ===== -->
+    <section id="works">
+      <h2 data-es="Proyectos" data-en="Projects">Proyectos</h2>
+      <article class="card">
+        <div style="flex:1">
+          <h3>ZenFeed</h3>
+          <p data-es="Automatización diaria de noticias relevantes con GPT y Cloudflare Workers." data-en="Daily news automation powered by GPT & Cloudflare Workers.">Automatización diaria de noticias relevantes con GPT y Cloudflare Workers.</p>
+          <span class="tag">JavaScript</span><span class="tag">Workers
